@@ -1,0 +1,40 @@
+name: Deploy REact Vite to Github Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      #Checkout the repo
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+        #Setup node js
+      - name: Setup Node.js
+        working-directory: ./SpidrWebApp
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: 'npm'
+        
+        #Install Dependencies
+      - name: Install dependencies
+        working-directory: ./SpidrWebApp
+        run: npm install
+      
+      #Build Project
+      - name: Build
+        working-directory: ./SpidrWebApp
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist
