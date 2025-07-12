@@ -17,6 +17,7 @@ jobs:
 
         #Setup node js
       - name: Setup Node.js
+        working-directory: ./SpidrWebApp
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
