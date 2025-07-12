@@ -24,10 +24,12 @@ jobs:
         
         #Install Dependencies
       - name: Install dependencies
+        working-directory: ./SpidrWebApp
         run: npm install
       
       #Build Project
       - name: Build
+        working-directory: ./SpidrWebApp
         run: npm run build
 
       - name: Deploy to GitHub Pages
